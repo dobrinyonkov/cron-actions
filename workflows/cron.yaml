@@ -1,0 +1,15 @@
+name: daily-cron
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call our API route
+        run: |
+          curl --request POST \
+          --url '${{secrets.CRON_URL}}' \
+          --header 'Authorization: Bearer ${{ secrets.CRON_API_SECRET }}'
